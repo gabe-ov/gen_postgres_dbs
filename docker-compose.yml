@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  titanic_db:
+    image: postgres:17
+    container_name: titanic_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: titanic_db
+    volumes:
+      - ./databases/titanic_db:/csvs
+      - grafana_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  resolve_db:
+    image: postgres:17
+    container_name: resolve_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: resolve_db
+    volumes:
+      - ./databases/resolve_db:/csvs
+      - struct_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  spaceship_titanic_db:
+    image: postgres:17
+    container_name: spaceship_titanic_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: spaceship_titanic_db
+    volumes:
+      - ./databases/spaceship_titanic_db:/csvs
+      - stash_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+
+volumes:
+  grafana_data:
+  struct_data:
+  stash_data:
